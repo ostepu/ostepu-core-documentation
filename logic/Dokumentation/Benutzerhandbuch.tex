@@ -1,0 +1,376 @@
+% Name: Till Uhlig
+% Matrikelnummer: 211203809
+% Studiengang: Informatik
+% eMail: till.uhlig@student.uni-halle.de
+%
+\documentclass[10pt,a4paper,final,parskip]{scrartcl}
+%\usepackage {tex4ht}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[babel, german=guillemets]{csquotes}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx} % für die eingebundenen Bilder
+\usepackage{algorithm} % für die Pseudocodes
+\usepackage{algorithmic} % für die Pseudocodes
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{wrapfig}
+%\usepackage{thmbox}
+\usepackage[pagestyles,extramarks]{titlesec} % habe ich für meine Kopfzeile benutzt
+\usepackage{url} % für die URLs der Bibliographie
+\usepackage{tabularx} % für die erweiterten tabular Funktionen
+\usepackage{color} % dieses Package benötige ich für meinen \todo Befehl, um eine Farbige Box zu zeichnen
+ \usepackage{amsmath}
+ 
+\usepackage{listings,xcolor}
+%\newtheorem[L]{thmL}{Definition}
+%\newtheorem[M]{thmM}{Definition}
+%\newtheorem[S]{thmS}{Definition}
+\newtheorem{defi}{Definition}[section]
+\numberwithin{equation}{section}
+
+\floatname{algorithm}{Algorithmus}
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+    language=PHP,%
+    %
+    % Farben, diktengleiche Schrift
+    backgroundcolor={\color{codeGray}},% 
+    basicstyle={\small\ttfamily\color{codeGreen}},% 
+    commentstyle={\color{codeYellow}},%
+    keywordstyle={\color{codeBlue}},%
+    stringstyle={\color{codeRed}},%
+    identifierstyle={\color{codeBlue}},%
+    %
+    % Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben    
+    breaklines=true,%
+    showstringspaces=false,%
+    % 
+    % Listing-Caption unterhalb (bottom)
+    captionpos=b,%
+    % 
+    % Listing einrahmen
+    frame=single,%
+    rulecolor={\color{codeBlack}},%
+    % 
+    % winzige Zeilennummern links
+   % numbers=left,%
+ %   numberstyle={\tiny\color{codeBlack}}%
+}
+
+\newcommand{\monthword}[1]{\ifcase#1\or Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or July\or August\or September\or Oktober\or November\or Dezember\fi} 
+
+% Grunddaten festlegen, für Titelseite
+\title
+{Benutzerhandbuch}
+\author 
+{}
+\date{\vspace{12cm}\monthword{\the\month}\space\the\year}
+\subtitle
+{Eingabemasken-Plugin v1.0}
+
+
+% hier werden Kopf- und Fusszeile festgelegt
+\settitlemarks*{section,subsection}
+\newpagestyle{seite}{
+\headrule\footrule
+\sethead{}{\hfill \thesection.\ \sectiontitle\ifthesubsection{\ --\ \itshape\firstextramarks{subsection}\subsectiontitle}{}}{}
+\setfoot{}{\thepage}{}
+}
+
+\newenvironment{php}
+{\begin{minipage}{\textwidth}
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\newenvironment{beispiel}
+{\begin{minipage}{\textwidth}
+Beispiel
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\usepackage{chngcntr,tocloft}
+\counterwithin*{figure}{section}
+%\counterwithin*{figure}{subsection}
+%\counterwithin*{figure}{subsubsection}
+
+\renewcommand{\thefigure}{%
+  %\ifnum\value{subsection}=0
+    \thesection.\arabic{figure}%
+  %\else
+    %\ifnum\value{subsubsection}=0
+     % \thesubsection%.
+   %   \arabic{figure}%
+    %%\else
+    %%  \thesubsubsection.\arabic{figure}%
+   % \fi
+ % \fi
+}
+
+
+% diese Festlegungen werden für die \setlemma und \setdef benötigt
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+      
+% zum erzeugen einer Lemmas oder einer Defintion      
+\newcommand{\setdef}[2]{\begin{definition}[#1] #2 \end{definition}}
+\newcommand{\setlemma}[2]{\begin{lemma}[#1] #2 \end{lemma}}
+
+\newcommand{\abb}[1]{Abbildung \ref{#1}}
+
+% Quellenangaben werden mit diesen Befehlen realisiert
+\newcommand{\zitat}[1]{\tiny{\cite{#1}}\normalsize}
+\newcommand{\Zzitat}[1]{\tiny{#1}\normalsize}
+
+% zum erzeugen von "todo" Zeilen
+\newcommand{\blau}[1]{\textcolor{blue}{#1}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\parbox{\textwidth}{Todo: \textbf{#1}}}}
+
+\newenvironment{Bilder}
+  {\par\raggedbottom\null\noindent\minipage{\textwidth}\centering}
+  {\endminipage\vspace{0.7cm}}
+  
+\newcommand{\bild}[3]{
+\begin{Bilder}
+ \fbox{\includegraphics[width=\textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\wbild}[4]{%\textwidth
+\begin{wrapfigure}{r}{#4\textwidth}
+\centering
+\fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+\end{wrapfigure}
+}
+
+\newcommand{\dbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\gbild}[3]{%
+\begin{Bilder}
+ \fbox{\includegraphics[width = \textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\pbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.50]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+% Ich habe öfters den Fall gehabt, dass ich gerne ein Lemma und
+% ein passendes Bild daneben darstellen wollte, darum habe ich
+% mir diese Gleitumgebung eingerichtet.
+\newcommand{\nebeneinander}[2]{
+\begin{figure}[H]
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#1
+  \end{minipage}
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#2
+  \end{minipage}\hfill
+\end{figure}
+}
+
+%\usepackage {tex4ht}
+% hier beginnt unser Dokument
+\begin{document}
+
+% zunächst die Titelseite ausgeben
+\cleardoublepage
+\maketitle
+
+% und unser Inhaltsverzeichnis
+\cleardoublepage
+\tableofcontents
+
+
+\cleardoublepage
+% ab hier nutze ich die oben definierten Kopf- und Fusszeilen
+\pagestyle{seite}
+%\dbild{Formular_erstellen.png}{}{}
+
+
+\section{Erweiterungen installieren/deinstallieren}
+Dazu müssen die erforderlichen Komponenten bereits im System vorhanden und entsprechend verknüpft sein. Damit ist es nun möglich, die erforderlichen Module für eine Veranstaltung zu installieren oder zu deinstallieren.
+
+\subsection*{LForm}
+Dieses Modul wird benötigt um Eingabemasken erstellen und in der Datenbank speichern zu können.
+
+\subsection*{LFormPredecessor}
+Wandelt vom Nutzer als Lösung eingeschickte Daten in eine PDF um und ermöglicht die Auswahl von Filtern, um vom Nutzer frei eingegebene Daten in ihrer Form zu beschränken. 
+
+\subsection*{LFormProcessor}
+Gleicht die Einsendung des Nutzers mit der Musterlösung ab und erstellt daraus eine fertige Korrektur.
+
+\subsection{neue Veranstaltung}
+Wenn Sie als \blau{super-Admin} eine neue Veranstaltung anlegen (\blau{Plattform verwalten}), können Sie direkt im Bereich \blau{Erweiterungen} die Komponenten zur Installation auswählen.
+
+Wählen Sie dazu den Menüpunkt \blau{Plattform verwalten}.
+\gbild{Veranstaltungsubersicht/PlattformVerwaltenButton.png}{Plattform verwalten}{}
+
+Sie gelangen nun in die Verwaltung der Plattform, wo Sie den Vorgang, zur Erstellung einer neuen Veranstaltung, auslösen können. Wählen Sie hier ebenfalls die Erweiterungen aus, welche Sie nutzen möchten.
+\gbild{PlattformVerwalten/VeranstaltungErstellen.png}{neue Veranstaltung anlegen}{}
+
+\subsection{existierende Veranstaltung}
+Existiert die Veranstaltung bereits, kann ein \blau{Admin} in der \blau{Kursverwaltung} im Bereich \blau{Erweiterungen} sowohl Erweiterungen installieren (Haken gesetzt) und deinstallieren (Haken nicht gesetzt). Beachten Sie dabei, das beim deinstallieren einer Erweiterung ebenfalls die durch diese Erweiterung angelegten Daten verloren gehen können.
+
+Betreten Sie dazu eine Veranstaltung und verwenden Sie den Menüpunkt \blau{Kurs verwalten}.
+\gbild{Veranstaltung/Kurs_Verwalten.png}{Kurs verwalten}{}
+
+Nun können Sie die Erweiterungen im entsprechenden Bereich konfigurieren.
+\gbild{Erweiterungen_zuschalten.png}{Erweiterungseinstellungen}{}
+
+\section{Eingabemaske erstellen}
+Dazu benötigen Sie die Berechtigung zur Erstellung neuer Übungsserien. 
+
+Begeben Sie sich in eine Veranstaltung und von dort über den Menüpunkt \blau{Serie anlegen}, in die Übersicht zum Anlegen neuer Übungsserien.
+\gbild{Veranstaltung/SerieErstellen.png}{neue Serie anlegen}{}
+
+Dort finden Sie nun in den Teilaufgaben den Menüpunkt \blau{Eingabemaske verwenden}
+\gbild{SerieErstellen/EingabemaskeVerwenden.png}{Eingabemaske verwenden}{}
+
+Entscheiden Sie sich nun für eine Art der Eingabemasken.
+\gbild{Eingabemaske_verwenden.png}{Art der Eingabemaske wählen}{}
+
+\clearpage
+\subsection{Eingabezeile}
+Hier hat der Nutzer die Möglichkeit, auf eine Frage frei zu Antworten.
+
+\gbild{SerieErstellen/EingabezeileVerwenden3.png}{Eingabezeile verwenden}{}
+
+\begin{enumerate}
+\item{Geben Sie hier die Aufgabenstellung ein (maximal 2500 Zeichen)}
+\item{Tragen Sie hier die Lösungsbegründung ein, diese erscheint in der Korrektur des Studenten (maximal 2500 Zeichen)}
+\item{Tragen Sie hier die Musterlösung ein}
+\item{Wählen Sie diese Schaltfläche, um die Eingabemaske zu entfernen oder die Art der Eingabemaske zu ändern}
+\end{enumerate}
+
+\clearpage
+\subsection{Einfachauswahl}
+Der Nutzer kann bei dieser Variante eine einzelne Antwort als Einsendung auswählen.
+
+\gbild{SerieErstellen/EinfachauswahlVerwenden3.png}{Einfachauswahl verwenden}{}
+
+\begin{enumerate}
+\item{Geben Sie hier die Aufgabenstellung ein (maximal 2500 Zeichen)}
+\item{Tragen Sie hier die Lösungsbegründung ein, diese erscheint in der Korrektur des Studenten(maximal 2500 Zeichen)}
+\item{Verwenden Sie diese Schaltfläche, um die Anzahl der Auswahlmöglichkeiten zu erhöhen}
+\item{Tragen Sie in diese Felder die Beschriftungen für die Auswahlmöglichkeiten ein}
+\item{Legen Sie hier durch Auswahl die Musterlösung fest}
+\item{Diese Schaltfläche wird für das Entfernen einer Auswahlmöglichkeit verwendet}
+\item{Wählen Sie diese Schaltfläche, um die Eingabemaske zu entfernen oder die Art der Eingabemaske zu ändern}
+\end{enumerate}
+
+%\clearpage
+\subsection{Mehrfachauswahl}
+Der Nutzer kann hierbei mehrere Antworten als Lösung auswählen. Dabei gilt eine Frage nur bei vollständiger Übereinstimmung als Korrekt.
+
+\gbild{SerieErstellen/MehrfachauswahlVerwenden3.png}{Mehrfachauswahl verwenden}{}
+
+\begin{enumerate}
+\item{Geben Sie hier die Aufgabenstellung ein (maximal 2500 Zeichen)}
+\item{Tragen Sie hier die Lösungsbegründung ein, diese erscheint in der Korrektur des Studenten(maximal 2500 Zeichen)}
+\item{Verwenden Sie diese Schaltfläche, um die Anzahl der Auswahlmöglichkeiten zu erhöhen}
+\item{Tragen Sie in diese Felder die Beschriftungen für die Auswahlmöglichkeiten ein}
+\item{Legen Sie hier durch Auswahl die Musterlösung fest}
+\item{Diese Schaltfläche wird für das Entfernen einer Auswahlmöglichkeit verwendet}
+\item{Wählen Sie diese Schaltfläche, um die Eingabemaske zu entfernen oder die Art der Eingabemaske zu ändern}
+\end{enumerate}
+
+\section{verarbeitende Module}
+Wählen Sie die Schaltfläche \blau{Verarbeitung hinzufügen}, um ein verarbeitendes Modul für diese Aufgabe zu verwenden. Sie können dabei beliebig viele solcher Module, für eine Aufgabe, konfigurieren.
+\gbild{SerieErstellen/VerarbeitungVerwenden.png}{Verarbeitung hinzufügen}{}
+
+Wählen Sie nun das Modul, welches Sie verwenden möchten.
+\gbild{SerieErstellen/VerarbeitungWahlen.png}{verarbeitendes Modul wählen}{}
+
+\clearpage
+\subsection{LFormPredecessor}
+\gbild{SerieErstellen/LFormPredcessor.png}{LFormPredecessor verwenden}{}
+
+Bei der Verwendung von \blau{Eingabzeilen}, kann die Antwortform für den Nutzer durch die Verwendung von Filtern begrenzt werden. Dieser Punkt ist ebenfalls für den Abgleich mit einer Musterlösung wichtig, da er die Antwortmöglichkeiten für den Nutzer einschränkt. Dabei wäre es auch denkbar, mehrere Filter zu kombinieren, diese werden dabei UND verknüpft angewendet.
+
+\subsubsection*{druckbare Zeichen}
+
+Lässt nur druckbare Zeichen zu. Das stellt eine Kombination aus den Filtern \blau{Buchstaben}, \blau{Ziffern} und \blau{[ !"'$\#$\$\%\&'()*+,-./:;$<=>?@[\backslash]$\^\_$`{|}~$]} dar.
+ 
+\subsubsection*{Buchstaben}
+Erlaubt nur Zeichenfolgen, mit Buchstaben (\blau{[A-Z]} bzw. \blau{[a-z]}).
+
+\subsubsection*{Zahlen}
+Erlaubt Ziffern (\blau{[0-9]}), mit Trennzeichen (\blau{[,.]}).
+
+\subsubsection*{Ziffern}
+Erlaubt Ziffern (\blau{[0-9]}).
+
+\subsubsection*{Buchstaben+Ziffern}
+Kombiniert die Filter \blau{Ziffern} und \blau{Buchstaben}.
+
+\subsubsection*{Hexadezimalzahlen}
+Erlaubt Zeichenketten als Eingabe, welche Ziffern (\blau{[0-9]}) oder Buchstaben (\blau{[A-F]} bzw. \blau{[a-f]}) enthalten.
+
+\subsubsection*{regulärer Ausdruck}
+Sie können auch selbst reguläre Ausdrücke definiere, weitere Informationen zur Form finden Sie unter 
+\blau{http://www.php.net/manual/de/regexp.introduction.php}.
+
+\subsection{LFormProcessor}
+\gbild{SerieErstellen/LFormProcessor.png}{LFormProcessor verwenden}{}
+
+Grundsätzlich wird jede Antwort, die des Nutzers und die Musterlösung, vorbehandelt. Dieser Vorgang ist nur für die Verwendung von Eingabezeilen interessant. Dabei wird die Zeichenkette in Kleinbuchstaben umgewandelt und beidseitig Zeichen, wie Leerzeichen und Tabulatorzeichen, entfernt.
+Genauere Informationen finden Sie unter \blau{http://php.net/manual/de/function.trim.php}.
+
+\subsubsection*{normaler Vergleich}
+\dbild{SerieErstellen/LFormProcessorNormal.png}{normaler Vergleich von Einsendung und Musterlösung}{}
+Wenn Sie diese Einstellung auswählen, gilt die Antwort des Nutzers als korrekt, sofern sie exakt mit der Musterlösung übereinstimmt. Sie müssen keine weiteren Werte in das Eingabefeld eintragen.
+
+\subsubsection*{ähnliche Antworten}
+\dbild{SerieErstellen/LFormProcessorAhnlichkeit.png}{ähnliche Antworten zulassen}{}
+
+Um ähnliche Antworten als Lösung zuzulassen, können Sie diese Vergleichsart verwenden. Wählen Sie dazu den Grad der Übereinstimmung aus, indem Sie ihn in Prozent, in das nebenstehende Eingabefeld eintragen. 
+
+Bsp.: 90
+
+Für Informationen zum verwendeten Algorithmus, siehe \\ \blau{http://www.php.net/manual/de/function.similar-text.php}.
+
+\clearpage
+\subsubsection*{regulärer Ausdruck}
+\dbild{SerieErstellen/LFormProcessorRegular.png}{Verwendung eines regulären Ausdrucks}{}
+
+Mit dieser Einstellung können Sie in das nebenstehende Eingabefeld reguläre Ausdrücke eintragen und zum Vergleich mit der Einsendung des Nutzers verwenden. Die Musterlösung des Formulars wird dabei im Falle einer Fehlantwort des Studenten verwendet, um diese in der korrigierten Einsendung als Musterlösung zu verwenden.
+
+weitere Informationen zur Form finden Sie unter \\
+\blau{http://www.php.net/manual/de/regexp.introduction.php}.
+
+Bsp.: $\%$\textasciicircum[B$|$b]erlin$\$\%$
+ 
+
+\end{document}
