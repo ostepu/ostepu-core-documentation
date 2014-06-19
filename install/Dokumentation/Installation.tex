@@ -1,0 +1,340 @@
+% Name: Till Uhlig
+% Matrikelnummer: 211203809
+% Studiengang: Informatik
+% eMail: till.uhlig@student.uni-halle.de
+%
+\documentclass[10pt,a4paper,final,parskip]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[babel, german=guillemets]{csquotes}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx} % für die eingebundenen Bilder
+\usepackage{algorithm} % für die Pseudocodes
+\usepackage{algorithmic} % für die Pseudocodes
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{wrapfig}
+%\usepackage{thmbox}
+\usepackage[pagestyles,extramarks]{titlesec} % habe ich für meine Kopfzeile benutzt
+\usepackage{url} % für die URLs der Bibliographie
+\usepackage{tabularx} % für die erweiterten tabular Funktionen
+\usepackage{color} % dieses Package benötige ich für meinen \todo Befehl, um eine Farbige Box zu zeichnen
+ \usepackage{amsmath}
+ 
+\usepackage{listings,xcolor}
+%\newtheorem[L]{thmL}{Definition}
+%\newtheorem[M]{thmM}{Definition}
+%\newtheorem[S]{thmS}{Definition}
+\newtheorem{defi}{Definition}[section]
+\numberwithin{equation}{section}
+
+\floatname{algorithm}{Algorithmus}
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+    language=PHP,%
+    %
+    % Farben, diktengleiche Schrift
+    backgroundcolor={\color{codeGray}},% 
+    basicstyle={\small\ttfamily\color{codeGreen}},% 
+    commentstyle={\color{codeYellow}},%
+    keywordstyle={\color{codeBlue}},%
+    stringstyle={\color{codeRed}},%
+    identifierstyle={\color{codeBlue}},%
+    %
+    % Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben    
+    breaklines=true,%
+    showstringspaces=false,%
+    % 
+    % Listing-Caption unterhalb (bottom)
+    captionpos=b,%
+    % 
+    % Listing einrahmen
+    frame=single,%
+    rulecolor={\color{codeBlack}},%
+    % 
+    % winzige Zeilennummern links
+   % numbers=left,%
+ %   numberstyle={\tiny\color{codeBlack}}%
+}
+
+\newcommand{\monthword}[1]{\ifcase#1\or Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or July\or August\or September\or Oktober\or November\or Dezember\fi} 
+
+% Grunddaten festlegen, für Titelseite
+\title
+{Benutzerhandbuch}
+\author 
+{}
+\date{\vspace{12cm}\monthword{\the\month}\space\the\year}
+\subtitle
+{Installationsassistent}
+
+
+% hier werden Kopf- und Fusszeile festgelegt
+\settitlemarks*{section,subsection}
+\newpagestyle{seite}{
+\headrule\footrule
+\sethead{}{\hfill \thesection.\ \sectiontitle\ifthesubsection{\ --\ \itshape\firstextramarks{subsection}\subsectiontitle}{}}{}
+\setfoot{}{\thepage}{}
+}
+
+\newenvironment{php}
+{\begin{minipage}{\textwidth}
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\newenvironment{beispiel}
+{\begin{minipage}{\textwidth}
+Beispiel
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\usepackage{chngcntr,tocloft}
+\counterwithin*{figure}{section}
+%\counterwithin*{figure}{subsection}
+%\counterwithin*{figure}{subsubsection}
+
+\renewcommand{\thefigure}{%
+  %\ifnum\value{subsection}=0
+    \thesection.\arabic{figure}%
+  %\else
+    %\ifnum\value{subsubsection}=0
+     % \thesubsection%.
+   %   \arabic{figure}%
+    %%\else
+    %%  \thesubsubsection.\arabic{figure}%
+   % \fi
+ % \fi
+}
+
+
+% diese Festlegungen werden für die \setlemma und \setdef benötigt
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+      
+% zum erzeugen einer Lemmas oder einer Defintion      
+\newcommand{\setdef}[2]{\begin{definition}[#1] #2 \end{definition}}
+\newcommand{\setlemma}[2]{\begin{lemma}[#1] #2 \end{lemma}}
+
+\newcommand{\abb}[1]{Abbildung \ref{#1}}
+
+% Quellenangaben werden mit diesen Befehlen realisiert
+\newcommand{\zitat}[1]{\tiny{\cite{#1}}\normalsize}
+\newcommand{\Zzitat}[1]{\tiny{#1}\normalsize}
+
+% zum erzeugen von "todo" Zeilen
+\newcommand{\blau}[1]{\textcolor{blue}{#1}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\parbox{\textwidth}{Todo: \textbf{#1}}}}
+
+\newenvironment{Bilder}
+  {\par\raggedbottom\null\noindent\minipage{\textwidth}\centering}
+  {\endminipage\vspace{0.7cm}}
+  
+\newcommand{\bild}[3]{
+\begin{Bilder}
+ \fbox{\includegraphics[width=\textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\wbild}[4]{%\textwidth
+\begin{wrapfigure}{r}{#4\textwidth}
+\centering
+\fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+\end{wrapfigure}
+}
+
+\newcommand{\dbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\gbild}[3]{%
+\begin{Bilder}
+ \fbox{\includegraphics[width = \textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\pbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.50]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+% Ich habe öfters den Fall gehabt, dass ich gerne ein Lemma und
+% ein passendes Bild daneben darstellen wollte, darum habe ich
+% mir diese Gleitumgebung eingerichtet.
+\newcommand{\nebeneinander}[2]{
+\begin{figure}[H]
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#1
+  \end{minipage}
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#2
+  \end{minipage}\hfill
+\end{figure}
+}
+
+
+% hier beginnt unser Dokument
+\begin{document}
+
+% zunächst die Titelseite ausgeben
+\cleardoublepage
+\maketitle
+
+% und unser Inhaltsverzeichnis
+\cleardoublepage
+\tableofcontents
+
+
+\cleardoublepage
+% ab hier nutze ich die oben definierten Kopf- und Fusszeilen
+\pagestyle{seite}
+%\dbild{Formular_erstellen.png}{}{}
+
+
+\section{Aufrufen}
+Sie finden den Installationsassistenten unter \blau{install/install.php}. Der Installationsassistent verwendet die mitgelieferten \blau{Assistants/Request.php}, \blau{Assistants/Structures.php}, \blau{Assistants/Slim/Slim.php}, \blau{UI/include/Authentication.php} und \blau{Assistants/DBRequest.php}. Ist der Zugriff auf diese Dateien nicht möglich, kann es zu Fehlverhalten kommen.
+
+Der Assistent besteht aus mehreren Teilbereichen, die einzeln über die, zu jeder Sektion gehörende, in \abb{installation} dargestellte, Schaltfläche ausgelöst werden können.
+
+\dbild{install/installieren.png}{Schaltfläche zum Installieren einer Sektion}{installation}
+
+Möchten Sie direkt alle Installationsschritte auslösen, steht am Ende des Dokumentes eine entsprechende, in \abb{AllesInstallieren} dargestellte Schaltfläche zur Verfügung.
+
+\gbild{install/AllesInstallieren.png}{Schaltfläche zum Installieren aller Sektionen}{AllesInstallieren}
+
+\clearpage
+\section{Module/Erweiterungen}
+\gbild{install/ModuleErweiterungen.png}{vorhandene Module und Erweiterungen}{ModuleErweiterungen}
+Dieser Bereich prüft selbstständig, ob von der Plattform benötigte Apache Module und PHP Erweiterungen vorhanden sind. 
+Kann ein solches Modul nicht gefunden werden, wird dies, wie in \abb{ErweiterungFehler} dargestellt, signalisiert.
+
+\gbild{install/ErweiterungFehler.png}{fehlende Erweiterung/Modul}{ErweiterungFehler}
+
+
+\section{Grundeinstellungen}
+\gbild{install/Grundeinstellungen.png}{Grundeinstellungen}{Grundeinstellungen}
+Geben Sie in das in \abb{Grundeinstellungen} dargestellte Eingabefeld die URL ein unter der, der Ordner der Plattform zu erreichen ist. Dieser Pfad wird von den Komponenten zum Aufruf untereinander verwendet.
+
+\section{Datenbank einrichten}
+\gbild{install/DatenbankEinrichten.png}{Datenbank einrichten}{Bereich zum einrichten der Datenbank}
+\begin{enumerate}
+\item Tragen Sie hier die URL ein, unter welcher die Datenbankanwendung zu erreichen ist.
+\item Vergeben Sie hier einen eindeutigen Namen für die neue Datenbank. Beachten Sie dabei, dass der Assistent eine bestehende Datenbank mit diesem Namen zunächst entfernen wird.
+\item Wählen Sie diese Auswahlbox aus, um eine bereits existierende Datenbank zu überschreiben
+\item Dieser Datenbank Nutzer muss ausreichend Rechte besitzen, um eine neue Datenbank anlegen zu können.
+\item Das Passwort des Nutzers, der zum Anlegen der Datenbank genutzt wird.
+\item Enthält die Definition der Datenbank und ihrer Tabellen.
+\item Enthält die Komponenten und ihre Verknüpfungen.
+\end{enumerate}
+
+Wurde die Datenbank korrekt angelegt, erscheint die Darstellung aus \abb{DatenbankdateiKorrekt}.
+\gbild{install/DatenbankdateiKorrekt.png}{Datenbank angelegt}{DatenbankdateiKorrekt} 
+
+Wurde die Komponentendatei korrekt installiert, erscheint die \abb{KomponentendateiKorrekt}.
+\gbild{install/KomponentendateiKorrekt.png}{Komponenten korrekt eingetragen}{KomponentendateiKorrekt}
+
+\subsection{häufige Fehler}
+\gbild{install/DatenbankFalschesPasswort.png}{Zugriff nicht möglich}{DatenbankFalschesPasswort}
+Überprüfen Sie \blau{Benutzername} und \blau{Passwort}. Der Zugriff auf den MySql Server war über die angegeben Zugangsdaten nicht möglich.
+
+\gbild{install/SQLHostUnbekannt.png}{MySql Server kann nicht gefunden werden}{SQLHostUnbekannt}
+Unter der von Ihnen eingegeben \blau{Adresse} kann kein MySql Server angesprochen werden. Die Plattform verwendet den Standartport zum Ansprechen des MySql Servers.
+
+
+\section{Benutzerschnittstelle einrichten}
+\gbild{install/UIEinrichten.png}{Benutzerschnittstelle einrichten}{UIEinrichten}
+
+Die Benutzerschnittstelle enthält eine Konfigurationsdatei, in welcher ihr mitgeteilt wird, unter welcher URL sie das übrige System erreichen kann. Dazu wird die Adresse aus den \blau{Grundeinstellungen} verwendet. Beachten Sie, dass diese Datei bereits vorhanden sein könnte oder aber durch den Assistenten neu erstellt werden können muss.
+
+Konnte die Datei korrekt geändert oder erstellt werden, erscheint die \abb{UIConfKorrekt}.
+
+\gbild{install/UIConfKorrekt.png}{Korrekt eingerichtete Benutzerschnittstelle}{UIConfKorrekt}
+
+\clearpage
+\section{Datenbankschnittstelle einrichten}
+\gbild{install/DBEinrichten.png}{Datenbankschnittstelle einrichten}{DBEinrichten}
+\begin{enumerate}
+\item Geben Sie hier den Benutzernamen für den Datenbankzugang ein.
+\item Wählen Sie diese Auswahlbox aus, um einen bereits existieren Nutzer zu überschreiben
+\item Tragen Sie hier das Passwort des Benutzers ein.
+\end{enumerate} 
+
+Die Datenbankkomponenten benötigen Informationen über den Zugang zur Datenbank. Dabei können die zu verwendenden Zugangsdaten von denen aus der Datenbankinstallation abweichen. 
+
+Wurden allen Dateien korrekt erstellt oder geändert, erscheint die \abb{DBConfKorrekt}.
+\gbild{install/DBConfKorrekt.png}{korrekt eingerichtete Datenbankschnittstelle}{DBConfKorrekt}
+
+\section{Systemadministrator einrichten}
+\gbild{install/SuperAdminErstellen.png}{Systemadministrator einrichten}{SuperAdminErstellen}
+Hier kann ein neuer Nutzer in die Plattform eingetragen werden, dabei erhält dieser Nutzer des Status eines \blau{super-admin}. Um Einstellungen an der Plattform vornehmen zu können, wir mindestens ein solcher Systemadministrator benötigt. Die optionalen Informationen, sowie das Passwort können auch in der Plattform selbst noch verändert werden.
+
+\begin{enumerate}
+\item Geben Sie hier den Benutzernamen für den zu erstellenden Nutzers ein
+\item Tragen Sie hier das Passwort des Nutzers ein.
+\item Der Vorname des Nutzers (optional).
+\item Der Nachname des Nutzers (optional).
+\item Die E-Mail Adresse des Nutzers (optional).
+\end{enumerate} 
+
+\clearpage
+\section{Komponenten einrichten}
+\gbild{install/CCEinrichten.png}{Komponenten einrichten}{CCEinrichten}
+Den Komponenten muss mitgeteilt werden, an wen sie ihre Anfragen senden müssen. Dazu wird der Datenbank für jede Komponente, eine solche Definition entnommen und zugewiesen. Beachten Sie dabei, dass dazu Schreibrechte im Ordner jeder Komponente bestehen müssen.
+
+\gbild{install/KomponenteKorrektInstalliert.png}{eingerichtete Komponente}{}
+Jede Komponente erhält einen solchen Block, dabei steht der eindeutige Name der Komponente ganz links. Es ist möglich, dass Komponenten eine Variante einer anderen Komponente darstellen, dennoch als eigene Komponente verstanden werden.
+
+\begin{enumerate}
+\item Die Adresse, unter der die Komponente zu erreichen ist. Diese Information entstammt der Datenbank. Wenn dieser Adresse erfolgreich Verknüpfungsdaten übermittelt werden konnten, wird hier ein OK angezeigt. 
+\item Wenn die Komponente erreicht wurde, werden von dieser die unterstützen Befehle abgerufen, die Anzahl dieser wird hier angezeigt.
+\item Nach dem einrichten der Komponente, werden die Ausgänge und darüber ausgeführten Aufrufe, abgerufen. Besitzt die Komponente mehrere Ausgänge, gibt es ebenso viele Blöcke dieser Form. Dabei wird zunächst angezeigt, ob der Ausgang korrekt installiert werden konnte, wenn dem so ist, steht dort ein OK. Danach folgen die Komponenten, welche mit diesem Ausgang verknüpft wurden.
+\end{enumerate}
+
+\gbild{install/AlleKomponentenKorrekt.png}{Informationen zum Umfang der Installation}{}
+\begin{enumerate}
+\item Die Anzahl der korrekt installierten Komponenten, dabei werden Varianten als eigene Komponente gewertet.
+\item Die Anzahl der korrekt installierten Verknüpfungen zwischen den Komponenten.
+\item Die Anzahl der korrekt installierten Befehle, welche alle Komponenten in der Summe unterstützen.
+\item Gibt an, ob alle Komponenten und Verknüpfungen korrekt installiert wurden.
+\end{enumerate}
+
+\subsection{häufige Fehler}
+
+\gbild{install/nicht_Verknupft.png}{nicht Verknüpft}{nicht_Verknupft}
+Es wurde für einen Ausgang einer Komponente kein entsprechender Datenbankeintrag gefunden. Damit funktioniert die Komponente nicht wie vorgesehen, da sie versuchen könnte, einen Ausgang aufzurufen, der nicht mit einer entsprechenden Komponente verknüpft wurde.
+
+\gbild{install/unbekannter_Ausgang.png}{unbekannter Ausgang}{unbekannter_Ausgang}
+Es wurde ein Datenbankeintrag für einen Ausgang gefunden, welcher der Komponente nicht bekannt ist. Diese Situation würde zu keinen Fehlverhalten führen, ist jedoch ein Anzeichen dafür, dass sich an der betroffenen Komponente etwas geändert hat, sodass die Verknüpfungsdefinitionen möglicherweise nicht mehr auf dem aktuellen Stand sind.
+
+\clearpage
+\gbild{install/unmogliche_Verbindung.png}{Verknüpfung wird nicht unterstützt}{unmogliche_Verbindung}
+Die Befehle, welche die Komponente über diesen Ausgang aufrufen möchte, werden von der verknüpften Komponente nicht angeboten. Möglicherweise wurde hier eine falsche Komponente als Ausgangsziel angegeben. 
+
+
+\end{document}
