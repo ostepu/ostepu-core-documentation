@@ -329,12 +329,17 @@ Jede Komponente erhält einen solchen Block, dabei steht der eindeutige Name der
 \gbild{install/nicht_Verknupft.png}{nicht Verknüpft}{nicht_Verknupft}
 Es wurde für einen Ausgang einer Komponente kein entsprechender Datenbankeintrag gefunden. Damit funktioniert die Komponente nicht wie vorgesehen, da sie versuchen könnte, einen Ausgang aufzurufen, der nicht mit einer entsprechenden Komponente verknüpft wurde.
 
+Prüfen Sie, ob für die betroffene Komponente oder die Zielkomponente eine aktuellere Version angeboten wird.
+
 \gbild{install/unbekannter_Ausgang.png}{unbekannter Ausgang}{unbekannter_Ausgang}
 Es wurde ein Datenbankeintrag für einen Ausgang gefunden, welcher der Komponente nicht bekannt ist. Diese Situation würde zu keinen Fehlverhalten führen, ist jedoch ein Anzeichen dafür, dass sich an der betroffenen Komponente etwas geändert hat, sodass die Verknüpfungsdefinitionen möglicherweise nicht mehr auf dem aktuellen Stand sind.
+
+Prüfen Sie, ob es für die betroffene Komponente eine aktuellere Version gibt.
 
 \clearpage
 \gbild{install/unmogliche_Verbindung.png}{Verknüpfung wird nicht unterstützt}{unmogliche_Verbindung}
 Die Befehle, welche die Komponente über diesen Ausgang aufrufen möchte, werden von der verknüpften Komponente nicht angeboten. Möglicherweise wurde hier eine falsche Komponente als Ausgangsziel angegeben. 
 
+Prüfen Sie, ob es für die betroffene Komponente oder die Zielkomponente eine aktuellere Version gibt.
 
 \end{document}
