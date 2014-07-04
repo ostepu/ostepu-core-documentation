@@ -216,6 +216,36 @@ Beispiel
 \pagestyle{seite}
 %\dbild{Formular_erstellen.png}{}{}
 
+\section{Vorarbeit}
+Sie benötigen einen installierten Apache und einen MySql Server.
+
+\subsection{Apache}
+\subsubsection*{virtueller Host}
+Zur Konfiguration eines virtuellen Host steht eine Beispielkonfiguration in der Datei \blau{default-virtualhost-conf} zur Verfügung. Beachten Sie dabei die Einträge mit dem Vermerk "\blau{\# Eintragen !!!}", einzutragen.
+
+\subsection{MySql}
+Damit wir mit deutschen Umlauten in unserer Datenbank arbeiten können, muss die \blau{my.cnf} bzw. \blau{my.ini} des MySQL-Server angepasst werden.
+
+\begin{minipage}{\textwidth}
+my.cnf oder my.ini
+\begin{lstlisting}
+[client]
+#
+# nicht auf utf-8 einstellen!!
+#
+
+[mysql]
+#
+# Standardeinstellung war leer, scheint zu funktionieren.
+#
+
+[mysqld]
+
+character_set_server=utf8
+skip-character-set-client-handshake
+...
+\end{lstlisting}
+\end{minipage}
 
 \section{Aufrufen}
 Sie finden den Installationsassistenten unter \blau{install/install.php}. Der Installationsassistent verwendet die mitgelieferten \blau{Assistants/Request.php}, \blau{Assistants/Structures.php}, \blau{Assistants/Slim/Slim.php}, \blau{UI/include/Authentication.php} und \blau{Assistants/DBRequest.php}. Ist der Zugriff auf diese Dateien nicht möglich, kann es zu Fehlverhalten kommen.
