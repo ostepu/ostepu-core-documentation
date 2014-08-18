@@ -259,9 +259,14 @@ Der Assistent besteht aus mehreren Teilbereichen, die einzeln über die, zu jede
 %\gbild{install/AllesInstallieren.png}{Schaltfläche zum Installieren aller Sektionen}{AllesInstallieren}
 
 \section{Navigation}
-\gbild{install/Menue.png}{}{Menue}
-\gbild{install/Navigation.png}{}{Navigation}
-\gbild{install/Sprache.png}{}{Sprache}
+\gbild{install/Menue.png}{Schaltflächen zur direkten Auswahl eines Installationsschrittes}{Menue}
+Die Schaltflächen, der \abb{Menue}, zeigen den aktuell gewählten Installationsschritt und ermöglichen die Auswahl eines bestimmten Installationsschrittes.
+
+\gbild{install/Navigation.png}{Vorwärts- und Rückwärts-Schaltflächen im Installationsprozess}{Navigation}
+Am Ende jeder Installationsseite werden die möglichen Bewegungen, wie in \abb{Navigation}, im Installationsprozess durch diese Schaltflächen dargestellt und ermöglichen die Bewegung innerhalb des Assistenten.
+
+\gbild{install/Sprache.png}{Schaltflächen für den Sprachwechsel}{Sprache}
+Wählen Sie mittels der Schaltflächen, aus \abb{Sprache}, die gewünschte Sprache aus.
 
 \section{Installation}
 \subsection{Informationen}
@@ -278,48 +283,57 @@ Geben Sie in das in \abb{Grundeinstellungen} dargestellte Eingabefeld die URL ei
 
 \subsubsection{Datenbankinformationen}
 \gbild{install/Datenbankinformationen.png}{}{Datenbankinformationen}
+Tragen Sie hier die URL ein, unter welcher die Datenbankanwendung zu erreichen ist und vergeben Sie einen eindeutigen Namen, für die neue Datenbank. Möchten Sie eine bereits bestehende Datenbank nutzen, so tragen Sie deren Namen ein.
+%Beachten Sie dabei, dass der Assistent eine bestehende Datenbank mit diesem Namen zunächst entfernen wird.
 
 \subsubsection{Datenbankadministrator}
 \gbild{install/Datenbankadministrator.png}{}{Datenbankadministrator}
+\begin{enumerate}
+\item Dieser Datenbanknutzer muss ausreichend Rechte besitzen, um eine neue Datenbank anlegen zu können.
+\item Das Passwort des Nutzers, der zum Anlegen der Datenbank genutzt wird.
+\end{enumerate}
 
 \subsubsection{Plattform-Datenbanknutzer}
 \gbild{install/PlattformDatenbanknutzer.png}{}{PlattformDatenbanknutzer}
 
+\begin{enumerate}
+\item Geben Sie hier den Benutzernamen für den Datenbankzugang, der Komponenten, ein.
+\item Tragen Sie hier das Passwort des Benutzers ein.
+\end{enumerate} 
+
 %\section{Datenbank einrichten}
 %\gbild{install/DatenbankEinrichten.png}{Datenbank einrichten}{Bereich zum einrichten der Datenbank}
-%\begin{enumerate}
-%\item Tragen Sie hier die URL ein, unter welcher die Datenbankanwendung zu erreichen ist.
-%\item Vergeben Sie hier einen eindeutigen Namen für die neue Datenbank. Beachten Sie dabei, dass der Assistent eine bestehende Datenbank mit diesem Namen zunächst entfernen wird.
-%\item Wählen Sie diese Auswahlbox aus, um eine bereits existierende Datenbank zu überschreiben
-%\item Dieser Datenbank Nutzer muss ausreichend Rechte besitzen, um eine neue Datenbank anlegen zu können.
-%\item Das Passwort des Nutzers, der zum Anlegen der Datenbank genutzt wird.
+
 %\item Enthält die Definition der Datenbank und ihrer Tabellen.
-%\item Enthält die Komponenten und ihre Verknüpfungen.
-%\end{enumerate}
+
 %
 %Wurde die Datenbank korrekt angelegt, erscheint die Darstellung aus \abb{DatenbankdateiKorrekt}.
 %\gbild{install/DatenbankdateiKorrekt.png}{Datenbank angelegt}{DatenbankdateiKorrekt} 
 %
-%Wurde die Komponentendatei korrekt installiert, erscheint die \abb{KomponentendateiKorrekt}.
-%\gbild{install/KomponentendateiKorrekt.png}{Komponenten korrekt eingetragen}{KomponentendateiKorrekt}
-
-%\subsubsection{häufige Fehler}
-%\gbild{install/DatenbankFalschesPasswort.png}{Zugriff nicht möglich}{DatenbankFalschesPasswort}
-%Überprüfen Sie \blau{Benutzername} und \blau{Passwort}. Der Zugriff auf den MySql Server war über die angegeben Zugangsdaten nicht möglich.
-%
-%\gbild{install/SQLHostUnbekannt.png}{MySql Server kann nicht gefunden werden}{SQLHostUnbekannt}
-%Unter der von Ihnen eingegeben \blau{Adresse} kann kein MySql Server angesprochen werden. Die Plattform verwendet den Standartport zum Ansprechen des MySql Servers.
 
 \subsection{Datenbank}
 \subsubsection{Plattform-Datenbanknutzer}
-\gbild{install/PlattformDatenbanknutzer.png}{}{PlattformDatenbanknutzer}
+\gbild{install/Plattform-Datenbanknutzer.png}{}{PlattformDatenbanknutzer}
+Hier kann der Datenbanknutzer der Komponenten angelegt und zusätzlich ausgewählt werden, ob er, falls er bereits existiert, überschrieben werden soll. Beachten Sie dabei, das der hier gewählte Nutzer, nur für die Nutzung der Datenbank, dieser Plattform, berechtigt sein wird.
 
 \subsubsection{Grundeinstellungen}
 \gbild{install/DatenbankGrundeinstellungen.png}{}{DatenbankGrundeinstellungen}
+%\item Wählen Sie diese Auswahlbox aus, um eine bereits existierende Datenbank zu überschreiben
+Dieser Bereich erstellt die definierte Datenbank und initialisiert die Komponenten CControl, DBQuery und DBQuery2 über einen \blau{POST /platform} Aufruf.
 
 \subsection{Komponenten}
 \subsubsection{Komponentendefinitionen installieren}
-\gbild{install/KomponentendateiKorrekt.png}{}{Komponentendefinition}
+\gbild{install/KomponentendateiKorrekt.png}{Komponenten korrekt eingetragen}{KomponentendateiKorrekt}
+Die Eingabezeile enthält die Konfigurationsdatei, mit den Komponenten und ihren Verknüpfungen. Durch das Auslösen, werden die existierenden Komponenteneinträge der Datenbank entfernt und aus dieser Datei eingepflegt.
+
+Wurde die Komponentendatei korrekt installiert, erscheint die \abb{KomponentendateiKorrekt}.
+
+\subsubsection{häufige Fehler}
+\gbild{install/DatenbankFalschesPasswort.png}{Zugriff nicht möglich}{DatenbankFalschesPasswort}
+Überprüfen Sie \blau{Benutzername} und \blau{Passwort}. Der Zugriff auf den MySql Server war über die angegeben Zugangsdaten nicht möglich.
+
+\gbild{install/SQLHostUnbekannt.png}{MySql Server kann nicht gefunden werden}{SQLHostUnbekannt}
+Unter der von Ihnen eingegeben \blau{Adresse} kann kein MySql Server angesprochen werden. Die Plattform verwendet den Standartport zum Ansprechen des MySql Servers.
 
 \subsubsection{Komponenten einrichten}
 \gbild{install/CCEinrichten.png}{Komponenten einrichten}{CCEinrichten}
@@ -365,7 +379,7 @@ Prüfen Sie, ob es für die betroffene Komponente oder die Zielkomponente eine a
 \subsubsection{Benutzerschnittstelle einrichten}
 \gbild{install/UIEinrichten.png}{Benutzerschnittstelle einrichten}{UIEinrichten}
 
-Die Benutzerschnittstelle enthält eine Konfigurationsdatei, in welcher ihr mitgeteilt wird, unter welcher URL sie das übrige System erreichen kann. Dazu wird die Adresse aus den \blau{Grundeinstellungen} verwendet. Beachten Sie, dass diese Datei bereits vorhanden sein könnte oder aber durch den Assistenten neu erstellt werden können muss.
+Die Benutzerschnittstelle enthält eine Konfigurationsdatei, in welcher ihr mitgeteilt wird, unter welcher URL sie das übrige System erreichen kann. Dazu wird die Adresse aus den \blau{Grundinformationen} verwendet. Beachten Sie, dass diese Datei bereits vorhanden sein könnte oder aber durch den Assistenten neu erstellt werden können muss.
 
 Konnte die Datei korrekt geändert oder erstellt werden, erscheint die \abb{UIConfKorrekt}.
 
@@ -373,10 +387,11 @@ Konnte die Datei korrekt geändert oder erstellt werden, erscheint die \abb{UICo
 
 \subsubsection{Plattform anlegen}
 \gbild{install/Plattform-anlegen.png}{}{Plattform-anlegen}
+Dieser Vorgang sendet, an eine eingetragene Menge von Komponenten, einen \blau{POST /platform} Aufruf, um die Datenbanktabellen der Plattform zu initialisieren.
 
 \subsubsection{Systemadministrator einrichten}
 \gbild{install/SuperAdminErstellen.png}{Systemadministrator einrichten}{SuperAdminErstellen}
-Hier kann ein neuer Nutzer in die Plattform eingetragen werden, dabei erhält dieser Nutzer des Status eines \blau{super-admin}. Um Einstellungen an der Plattform vornehmen zu können, wir mindestens ein solcher Systemadministrator benötigt. Die optionalen Informationen, sowie das Passwort können auch in der Plattform selbst noch verändert werden.
+Hier kann ein neuer Nutzer in die Plattform eingetragen werden, dabei erhält dieser Nutzer des Status eines \blau{super-admin}. Um Einstellungen an der Plattform vornehmen zu können, wir mindestens ein solcher Systemadministrator benötigt. Die optionalen Informationen, sowie das Passwort, können auch in der Plattform selbst noch verändert werden.
 
 \begin{enumerate}
 \item Geben Sie hier den Benutzernamen für den zu erstellenden Nutzers ein
@@ -390,11 +405,7 @@ Hier kann ein neuer Nutzer in die Plattform eingetragen werden, dabei erhält di
 %\clearpage
 %\section{Datenbankschnittstelle einrichten}
 %\gbild{install/DBEinrichten.png}{Datenbankschnittstelle einrichten}{DBEinrichten}
-%\begin{enumerate}
-%\item Geben Sie hier den Benutzernamen für den Datenbankzugang ein.
-%\item Wählen Sie diese Auswahlbox aus, um einen bereits existieren Nutzer zu überschreiben
-%\item Tragen Sie hier das Passwort des Benutzers ein.
-%\end{enumerate} 
+
 %
 %Die Datenbankkomponenten benötigen Informationen über den Zugang zur Datenbank. Dabei können die zu verwendenden Zugangsdaten von denen aus der Datenbankinstallation abweichen. 
 %
