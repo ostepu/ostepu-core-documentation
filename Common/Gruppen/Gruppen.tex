@@ -1,0 +1,257 @@
+% Name: Till Uhlig
+% Matrikelnummer: 211203809
+% Studiengang: Informatik
+% eMail: till.uhlig@student.uni-halle.de
+%
+\documentclass[10pt,a4paper,final,parskip]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[babel, german=guillemets]{csquotes}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx} % für die eingebundenen Bilder
+\usepackage{algorithm} % für die Pseudocodes
+\usepackage{algorithmic} % für die Pseudocodes
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{wrapfig}
+%\usepackage{thmbox}
+\usepackage[pagestyles,extramarks]{titlesec} % habe ich für meine Kopfzeile benutzt
+\usepackage{url} % für die URLs der Bibliographie
+\usepackage{tabularx} % für die erweiterten tabular Funktionen
+\usepackage{color} % dieses Package benötige ich für meinen \todo Befehl, um eine Farbige Box zu zeichnen
+ \usepackage{amsmath}
+ 
+\usepackage{listings,xcolor}
+%\newtheorem[L]{thmL}{Definition}
+%\newtheorem[M]{thmM}{Definition}
+%\newtheorem[S]{thmS}{Definition}
+\newtheorem{defi}{Definition}[section]
+\numberwithin{equation}{section}
+
+\floatname{algorithm}{Algorithmus}
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+    language=PHP,%
+    %
+    % Farben, diktengleiche Schrift
+    backgroundcolor={\color{codeGray}},% 
+    basicstyle={\small\ttfamily\color{codeGreen}},% 
+    commentstyle={\color{codeYellow}},%
+    keywordstyle={\color{codeBlue}},%
+    stringstyle={\color{codeRed}},%
+    identifierstyle={\color{codeBlue}},%
+    %
+    % Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben    
+    breaklines=true,%
+    showstringspaces=false,%
+    % 
+    % Listing-Caption unterhalb (bottom)
+    captionpos=b,%
+    % 
+    % Listing einrahmen
+    frame=single,%
+    rulecolor={\color{codeBlack}},%
+    % 
+    % winzige Zeilennummern links
+   % numbers=left,%
+ %   numberstyle={\tiny\color{codeBlack}}%
+}
+
+\newcommand{\monthword}[1]{\ifcase#1\or Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or July\or August\or September\or Oktober\or November\or Dezember\fi} 
+
+% Grunddaten festlegen, für Titelseite
+\title
+{}
+\author 
+{}
+\date{\vspace{12cm}\monthword{\the\month}\space\the\year}
+\subtitle
+{}
+
+
+% hier werden Kopf- und Fusszeile festgelegt
+\settitlemarks*{section,subsection}
+\newpagestyle{seite}{
+}
+
+\newenvironment{php}
+{\begin{minipage}{\textwidth}
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\newenvironment{beispiel}
+{\begin{minipage}{\textwidth}
+Beispiel
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\usepackage{chngcntr,tocloft}
+\counterwithin*{figure}{section}
+%\counterwithin*{figure}{subsection}
+%\counterwithin*{figure}{subsubsection}
+
+\renewcommand{\thefigure}{%
+  %\ifnum\value{subsection}=0
+    \thesection.\arabic{figure}%
+  %\else
+    %\ifnum\value{subsubsection}=0
+     % \thesubsection%.
+   %   \arabic{figure}%
+    %%\else
+    %%  \thesubsubsection.\arabic{figure}%
+   % \fi
+ % \fi
+}
+
+
+% diese Festlegungen werden für die \setlemma und \setdef benötigt
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+      
+% zum erzeugen einer Lemmas oder einer Defintion      
+\newcommand{\setdef}[2]{\begin{definition}[#1] #2 \end{definition}}
+\newcommand{\setlemma}[2]{\begin{lemma}[#1] #2 \end{lemma}}
+
+\newcommand{\abb}[1]{Abbildung \ref{#1}}
+
+% Quellenangaben werden mit diesen Befehlen realisiert
+\newcommand{\zitat}[1]{\tiny{\cite{#1}}\normalsize}
+\newcommand{\Zzitat}[1]{\tiny{#1}\normalsize}
+
+% zum erzeugen von "todo" Zeilen
+\newcommand{\blau}[1]{\textcolor{blue}{#1}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\parbox{\textwidth}{Todo: \textbf{#1}}}}
+
+\newenvironment{Bilder}
+  {\par\raggedbottom\null\noindent\minipage{\textwidth}\centering}
+  {\endminipage\vspace{0.7cm}}
+  
+\newcommand{\bild}[3]{
+\begin{Bilder}
+ \fbox{\includegraphics[width=\textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\wbild}[4]{%\textwidth
+\begin{wrapfigure}{r}{#4\textwidth}
+\centering
+\fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+\end{wrapfigure}
+}
+
+\newcommand{\dbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.5]{Images/#1}}
+	%\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\tbild}[3]{%\textwidth
+\begin{Bilder}
+ \includegraphics[scale=.5]{Images/#1}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\gbild}[3]{%
+\begin{Bilder}
+ \fbox{\includegraphics[width = \textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\pbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.50]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+% Ich habe öfters den Fall gehabt, dass ich gerne ein Lemma und
+% ein passendes Bild daneben darstellen wollte, darum habe ich
+% mir diese Gleitumgebung eingerichtet.
+\newcommand{\nebeneinander}[2]{
+\begin{figure}[H]
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#1
+  \end{minipage}
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#2
+  \end{minipage}\hfill
+\end{figure}
+}
+
+
+% hier beginnt unser Dokument
+\begin{document}
+
+% zunächst die Titelseite ausgeben
+%\cleardoublepage
+%\maketitle
+
+% und unser Inhaltsverzeichnis
+%\cleardoublepage
+%\tableofcontents
+
+
+%\cleardoublepage
+% ab hier nutze ich die oben definierten Kopf- und Fusszeilen
+\pagestyle{seite}
+%\dbild{Formular_erstellen.png}{}{}
+Sie müssen Ihre Gruppen in jeder Übungsserie erstellen/annehmen, denn Gruppenstrukturen werden zwischen den Übungsserien nicht automatisch übernommen.
+
+\section{Gruppe erstellen}
+Sie können eine Gruppe erstellen, indem Sie sich in die \blau{Gruppenverwaltung} begeben (in Ihrer \blau{Veranstaltungsübersicht} unter \blau{Gruppe verwalten}, wenn Gruppenbildung erlaubt ist).
+Geben Sie das 5-stellige Kürzel ihres zukünftigen Gruppenmitgliedes unter \blau{Einladungen zum Beitritt versenden} ein und bestätigen Sie das Versenden der Einladung, über die Schaltfläche \blau{versenden} (siehe \abb{einladen}).
+\tbild{2.png}{Gruppenmitglieder einladen}{einladen}
+
+\tbild{3.png}{Einladung wurde erfolgreich verschickt}{positivEinladen}
+Der Eingeladene muss nun die Einladung in seiner \blau{Gruppenverwaltung} annehmen, um den Vorgang abzuschließen.
+
+\tbild{3f.png}{unbekanntes Kürzel}{negativEinladen}
+Wenn Sie eine Fehlermeldung, wie in \abb{negativEinladen}, erhalten, sollten Sie das eingegebene Kürzel auf Korrektheit prüfen (eventuell klein schreiben).
+
+\section{Gruppe beitreten}
+Zum betreten einer Gruppe ist eine Einladung eines Gruppenführers erforderlich (siehe \blau{Gruppe erstellen}). Sie finden diese Einladungen in Ihrer \blau{Gruppenverwaltung} unter \blau{Einladungen zu anderen Gruppen}, wo Sie diese annehmen und ablehnen können (siehe \abb{beitreten}).
+
+\tbild{4.png}{Einladung annehmen}{beitreten}
+
+\tbild{9.png}{Einladung wurde erfolgreich angenommen}{positivBeitreten}
+
+\section{Gruppe verlassen}
+Sie können eine Gruppe auflösen (als Gruppenführer) oder verlassen (als Gruppenmitglied), indem Sie die Schaltfläche \blau{verlassen} in der \blau{Gruppenverwaltung} unter \blau{Gruppenübersicht} betätigen (siehe \abb{verlassen}).
+ 
+\tbild{7.png}{Gruppe verlassen/auflösen}{verlassen}
+
+\tbild{8.png}{Gruppe wurde verlassen}{Verlassen}
+Sollten Sie eine Gruppen verlassen/aufgelöst haben, müssen Sie ihre Einsendungen über den \blau{Einsendungsverlauf} für die Korrektur auswählen oder Ihre Abgaben erneut einsenden (\blau{Aufgaben hochladen}), weil durch das Verlassen der Gruppe die Einsendungsauswahl verloren geht. 
+
+\section{Einsendungen auswählen}
+Als \blau{Gruppenführer}), können Sie in Ihrer \blau{Gruppenverwaltung}, im Bereich \blau{Gruppeneinsendungen verwalten}, festlegen welche Einsendung der Gruppenmitglieder für die Korrektur bestimmt werden sollen. Wählen Sie dazu die entsprechende Einsendung aus und bestätigen Sie die Änderung über \blau{speichern} (siehe \abb{selektieren}).
+\tbild{5.png}{Einsendungen auswählen}{selektieren}
+\tbild{6.png}{Einsendung wurde ausgewählt}{positivSelektieren}
+Die ausgewählten Einsendungen werden allen Gruppenmitgliedern gleichermaßen auf deren \blau{Veranstaltungsübersicht} angezeigt.
+
+\end{document}
