@@ -1,0 +1,422 @@
+% Name: Till Uhlig
+% Matrikelnummer: 211203809
+% Studiengang: Informatik
+% eMail: till.uhlig@student.uni-halle.de
+%
+\documentclass[10pt,a4paper,final,parskip]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[babel, german=guillemets]{csquotes}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx} % für die eingebundenen Bilder
+\usepackage{algorithm} % für die Pseudocodes
+\usepackage{algorithmic} % für die Pseudocodes
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{wrapfig}
+%\usepackage{thmbox}
+\usepackage[pagestyles,extramarks]{} % habe ich für meine Kopfzeile benutzt
+\usepackage{url} % für die URLs der Bibliographie
+\usepackage{tabularx} % für die erweiterten tabular Funktionen
+\usepackage{color} % dieses Package benötige ich für meinen \todo Befehl, um eine Farbige Box zu zeichnen
+ \usepackage{amsmath}
+ 
+\usepackage{listings,xcolor}
+%\newtheorem[L]{thmL}{Definition}
+%\newtheorem[M]{thmM}{Definition}
+%\newtheorem[S]{thmS}{Definition}
+\newtheorem{defi}{Definition}[section]
+\numberwithin{equation}{section}
+
+\floatname{algorithm}{Algorithmus}
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+    language=PHP,%
+    %
+    % Farben, diktengleiche Schrift
+    backgroundcolor={\color{codeGray}},% 
+    basicstyle={\small\ttfamily\color{codeGreen}},% 
+    commentstyle={\color{codeYellow}},%
+    keywordstyle={\color{codeBlue}},%
+    stringstyle={\color{codeRed}},%
+    identifierstyle={\color{codeBlue}},%
+    %
+    % Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben    
+    breaklines=true,%
+    showstringspaces=false,%
+    % 
+    % Listing-Caption unterhalb (bottom)
+    captionpos=b,%
+    % 
+    % Listing einrahmen
+    frame=single,%
+    rulecolor={\color{codeBlack}},%
+    % 
+    % winzige Zeilennummern links
+   % numbers=left,%
+ %   numberstyle={\tiny\color{codeBlack}}%
+}
+
+\newcommand{\monthword}[1]{\ifcase#1\or Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or July\or August\or September\or Oktober\or November\or Dezember\fi} 
+
+% Grunddaten festlegen, für Titelseite
+\title
+{}
+\author 
+{}
+\date{\vspace{12cm}\monthword{\the\month}\space\the\year}
+\subtitle
+{}
+
+
+% hier werden Kopf- und Fusszeile festgelegt
+
+\newenvironment{php}
+{\begin{minipage}{\textwidth}
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\newenvironment{beispiel}
+{\begin{minipage}{\textwidth}
+Beispiel
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\usepackage{chngcntr,tocloft}
+\counterwithin*{figure}{section}
+%\counterwithin*{figure}{subsection}
+%\counterwithin*{figure}{subsubsection}
+
+\renewcommand{\thefigure}{%
+  %\ifnum\value{subsection}=0
+    \thesection.\arabic{figure}%
+  %\else
+    %\ifnum\value{subsubsection}=0
+     % \thesubsection%.
+   %   \arabic{figure}%
+    %%\else
+    %%  \thesubsubsection.\arabic{figure}%
+   % \fi
+ % \fi
+}
+
+
+% diese Festlegungen werden für die \setlemma und \setdef benötigt
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+      
+% zum erzeugen einer Lemmas oder einer Defintion      
+\newcommand{\setdef}[2]{\begin{definition}[#1] #2 \end{definition}}
+\newcommand{\setlemma}[2]{\begin{lemma}[#1] #2 \end{lemma}}
+
+\newcommand{\abb}[1]{Abbildung \ref{#1}}
+
+% Quellenangaben werden mit diesen Befehlen realisiert
+\newcommand{\zitat}[1]{\tiny{\cite{#1}}\normalsize}
+\newcommand{\Zzitat}[1]{\tiny{#1}\normalsize}
+
+% zum erzeugen von "todo" Zeilen
+\newcommand{\blau}[1]{\textcolor{blue}{#1}}
+\newcommand{\warn}[1]{\textcolor{yellow}{#1}}
+\newcommand{\nicht}{\textcolor{red}{!!!keine Verwendung!!!}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\parbox{\textwidth}{Todo: \textbf{#1}}}}
+
+\newenvironment{Bilder}
+  {\par\raggedbottom\null\noindent\minipage{\textwidth}\centering}
+  {\endminipage\vspace{0.7cm}}
+  
+\newcommand{\bild}[3]{
+\begin{Bilder}
+ \fbox{\includegraphics[width=\textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\wbild}[3]{\textwidth
+\begin{wrapfigure}{r}{\textwidth}
+\centering
+\fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+\end{wrapfigure}
+}
+
+\newcommand{\dbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.5]{Images/#1}}
+	%\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\tbild}[3]{%\textwidth
+\begin{Bilder}
+ \includegraphics[scale=1]{Images/#1}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\gbild}[3]{%
+\begin{Bilder}
+ \fbox{\includegraphics[width = \textwidth]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\pbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.50]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+% Ich habe öfters den Fall gehabt, dass ich gerne ein Lemma und
+% ein passendes Bild daneben darstellen wollte, darum habe ich
+% mir diese Gleitumgebung eingerichtet.
+\newcommand{\nebeneinander}[2]{
+\begin{figure}[H]
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#1
+  \end{minipage}
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#2
+  \end{minipage}\hfill
+\end{figure}
+}
+
+
+% hier beginnt unser Dokument
+\begin{document}
+
+% zunächst die Titelseite ausgeben
+%\cleardoublepage
+%\maketitle
+
+% und unser Inhaltsverzeichnis
+%\cleardoublepage
+%\tableofcontents
+
+%\cleardoublepage
+% ab hier nutze ich die oben definierten Kopf- und Fusszeilen
+\section{Paketdefinitionen}
+Sie können Komponenten und andere Dateien zu Paketen zusammenstellen, indem Sie eine entsprechende Definition im \blau{/Plugins} Ordner erstellen (im \blau{json} Format). Der Installationsassistent wird diese selbstständig erkennen und verwenden.
+
+\subsection{Aufbau}
+Die Definition erfolgt im \blau{json} Format.
+\begin{itemize}
+\item \blau{name} Der Name des Pakets wird im Installationsassistenten angezeigt
+\item \blau{version} Die Versionsnummer wird für die Überprüfung der \blau{requirements} benötigt. Dabei sollten die einzelnen Versionssegmente durch einen \blau{.} (Punkt) getrennt werden.
+\item \blau{versionDate} Ein zur Versionsnummer zugehöriges Datum \nicht
+\item \blau{author} Der Verfasser des Pakets/ der Komponenten (eventuell eine Aufzählung) \nicht
+\item \blau{sourceURL} Die Quelladresse des Pakets \nicht
+\item \blau{updateURL} Diese Adresse sollte Aktualisierungsinformationen bereitstellen \nicht
+\item \blau{requirements} Die Voraussetzungen sollen Mindestanforderungen an das übrige System beschreiben. Dabei können derzeit lediglich andere Pakete als Voraussetzung bestimmt werden.
+\begin{itemize}
+\item \blau{type} Als Typ ist lediglich \blau{plugin} möglich
+\item \blau{name} Der Name des entsprechenden Komponente/Paket, welches die Voraussetzung bilden soll
+\item \blau{version} eine eventuelle Versionsnummer der Komponente oder des Pakets, welche mindestens erfüllt sein muss.
+\end{itemize}
+\item \blau{files} Hier können einzelne Dateien und Ordner, vom Grundverzeichnis ausgehend,aufgezählt werden. Dabei sollte auch die Definitionsdatei des Paketes enthalten sein. Dateien können durch \blau{Pfad/Dateiname.Endung} und Ordner mittels \blau{Pfad/Ordner/} dem Paket hinzugefügt werden.
+\item \blau{components} Hier können Komponentendefinitionen aufgelistet werden, deren Inhalt verwendet werden soll.
+\begin{itemize}
+\item \blau{conf} Dieses Feld gibt die Adresse der Definition, vom Grundverzeichnis aus, an.
+\end{itemize}
+\end{itemize}
+
+\subsection{Beispiel}
+\begin{minipage}{\textwidth}
+ostepu-db.json
+\begin{lstlisting}
+{
+  "name":"OSTEPU-DB",
+  "version":"0.3",
+  "versionDate":"19.04.2015",
+  "author":"",
+  "sourceURL":"",
+  "updateURL":"",
+  "requirements":[{"type":"plugin","name":"CORE","version":"0.2"}],
+  "files":
+    [
+      {"path":"Plugins/ostepu-db.json"},
+      {"path":"Assistants/"},
+      {"path":"DB/.htaccess"}
+    ],
+  "components":
+    [
+      {"conf":"DB/DBCourse/Component.json"},
+      {"conf":"DB/DBCourseStatus/Component.json"},
+      {"conf":"DB/DBExercise/Component.json"}
+    ]
+}
+\end{lstlisting}
+\end{minipage}
+
+
+\section{Komponentendefinitionen}
+Der Aufbau einer Komponente wird in der zugehörigen \blau{Components.json} beschrieben.
+
+\subsection{Aufbau}
+\begin{itemize}
+\item \blau{name} Der Name der Komponente (dieser muss eindeutig sein)
+\item \blau{version} Die Versionsnummer wird für die Überprüfung der \blau{requirements} von Paketen (eventuell auch Komponente) benötigt. Dabei sollten die einzelnen Versionssegmente durch einen \blau{.} (Punkt) getrennt werden. \nicht
+\item \blau{classFile} Sofern die Komponente auch als Objekt aufrufbar sein soll, muss der Name der Klassendatei und der Name der aufzurufenden Klasse angegeben werden.
+\item \blau{className} Der Name der Hauptklasse, die Erzeugung einer Instanz der Klasse soll die Komponente auslösen
+\item \blau{files} Hier können einzelne Dateien und Ordner, vom Grundverzeichnis ausgehend,aufgezählt werden. Dateien können durch \blau{Pfad/Dateiname.Endung} und Ordner mittels \blau{Pfad/Ordner/} der Komponente hinzugefügt werden.
+
+\item \blau{type} Sofern es sich nicht um eine normale Definition handelt, kann hier der Typ \blau{clone} zum verwenden einer Komponentenkopie angegeben werden.
+\item \blau{base} Wenn es sich bei dieser Komponente um eine Kopier einer anderen Komponente handelt, muss die kopierte Komponente angegeben werden (Name), sodass deren Definition bei der Installation geladen werden kann.
+\item \blau{baseURI} Für Kopien von Komponente (wenn diese eine ist), muss einer eindeutiger Aufrufpräfix angegeben werden.
+\item \blau{option} Hier können eventuelle Einstellungsmöglichkeiten der Komponenten durch \blau{,} (Komma) getrennt aufgelistet werden.
+
+\item \blau{links} Hier werden Verbindungen von dieser Komponente, zu anderen Komponenten, beschrieben.
+\begin{itemize}
+\item \blau{name} Der Name des Ausgangs. Dieser Name wird von anderen Komponenten verwendet, wenn sich diese mit diesem Ausgang verbinden wollen.
+\item \blau{target} Hier kann eine einzelne Komponente oder eine Liste von Bezeichner genannt werden, zu denen sich diese Komponente an diesem Ausgang verbinden möchte. Die Aufzählung kann aber auch leer bleiben, sofern der Ausgang nur für das Anknüpfen anderer bereitgestellt werden soll.
+\item \blau{links} In diesem Bereich werden mögliche Aufrufe festgelegt, welche über diesen Ausgang abgewickelt werden können sollen. Sodass der Installationsassistent prüfen kann, ob eventuelle Zielkomponenten diese anbieten.
+\end{itemize}
+
+\item \blau{connector} Hier werden Verbindungen beschrieben, welche diese Komponente von anderen Komponenten zu sich selbst fordert.
+\begin{itemize}
+\item \blau{name} Der Name des Ausgangs der Komponente
+\item \blau{target} Der Name der Komponente, welche über den in \blau{name} genannten Ausgang diese Komponente aufrufen soll
+\end{itemize}
+
+\end{itemize}
+
+\subsection{Beispiel}
+\begin{minipage}{\textwidth}
+\begin{lstlisting}
+{
+    "name": "SampleA",
+    "version": "1.0",
+    "classFile": "SampleA.php",
+    "className": "SampleA",
+    "files": [
+        {"path": ".htaccess"},
+        {"path": "SampleA.php"},
+        {"path": "index.php"},
+        {"path": "Commands.json"}
+    ],
+    "links": [
+        {
+            "name": "outA",
+            "target": "SampleB",
+            "links": [
+                {
+                    "method": "GET",
+                    "path": "/callMe/:abc"
+                }
+            ]
+        }
+    ],
+    "connector": [
+        {
+            "name": "outB",
+            "target": "SampleC"
+        }
+    ]
+}
+\end{lstlisting}
+\end{minipage}
+
+\tbild{KomponentenDefinitionBeispiel.png}{\blau{SampleC} ist über den Ausgang \blau{outB} mit \blau{SampleA} verbunden und \blau{SampleA} über \blau{outA} mit \blau{SampleB}}{}
+
+\subsection{Kopien}
+Es gibt Komponenten, welche die Definition weiterer Komponenten durch das hinzufügen eines eindeutigen Präfixes erlauben. Dabei kann die Kopie mitunter eigene Tabellen (auf Datenbanken bezogen) oder Pfade verwenden. Beispiele für solche kopierbare Komponenten sind \blau{CAbstract} und \blau{DBAttachment2}.
+\begin{itemize}
+\item \blau{CAbstract} Diese Komponente erstellt lediglich eine \blau{cconfig.json} Datei an dem unter \blau{option} $\rightarrow$ \blau{confPath=Datei} angegebenen Ort, mit den zugehörigen Verbindungen.
+\item \blau{DBAttachment2} Hierbei erhält die neue Komponente eigene Tabellen, entsprechend dem Muster \blau{attachment\_Komponentenname}.
+\end{itemize}
+
+\subsection{Beispiel}
+\begin{minipage}{\textwidth}
+\begin{lstlisting}
+{
+  "name":"SampleA",
+  "version":"1.0",
+  "type":"clone",
+  "base":"SampleB",
+  "baseURI":"/sampleA",
+  "option":"confPath=Assistants/sampleA_cconfig.json",
+  "links":[
+    {"name":"request","target":"","links":[]}
+  ]
+}
+\end{lstlisting}
+\end{minipage}
+
+\tbild{VererbungBeispiel.png}{\blau{SampleA} ist eine Kopie von \blau{SampleB}, wobei Sample A einen zusätzlichen Ausgang \blau{request} definiert}{}
+
+\section{Aufrufdefinitionen}
+Sie können anderen Komponenten und Entwicklern Aufrufe anbieten, welche in der \blau{Commands.json} der entsprechenden Komponente definiert werden.
+
+\subsection{Aufbau}
+\begin{itemize}
+\item \blau{name} Der Name des aufrufbaren Befehls (sollte ausreichend beschreibend sein)
+\item \blau{callback} Die aufzurufende Funktion der Komponentenklasse (eventuell kümmert sich die Komponente auch selbst um den Ablauf, jedoch könnte eine entsprechende Hilfsklasse diese Information nutzen)
+\item \blau{outputType} Das Ausgabeformat des Aufrufs (eine leere Zeichenkette bestimmt eine leere Ausgabe der ein unbekanntes Ausgabeformat). Sie können hier eine der im \blau{Assistants/Structures/} Ordner definierten Strukturen namentlich angeben.
+\item \blau{inputType} Das Eingabeformat des Aufrufs (eine leere Zeichenkette bestimmt eine leere Ausgabe der ein unbekanntes Ausgabeformat)
+\item \blau{method} Die HTTP Aufrufmethode. Diese sollten im wesentlichen GET, POST, PUT und DELETE sein, aber auch andere sind denkbar.
+\item \blau{path} Der Befehl zum Aufruf dieser Funktion (URI).
+
+
+\end{itemize}
+
+\subsection{Beispiel}
+\begin{minipage}{\textwidth}
+\begin{lstlisting}
+[
+    {
+        "name": "getUserCourses",
+        "callback": "getMatch",
+        "outputType": "Course",
+        "inputType": "",
+        "method": "GET",
+        "path": "/course/user/:userid"
+    },
+    {
+        "name": "addPlatform",
+        "outputType": "Platform",
+        "inputType": "Platform",
+        "method": "POST",
+        "path": "/platform"
+    },
+    {
+        "name": "deletePlatform",
+        "outputType": "Platform",
+        "inputType": "",
+        "method": "DELETE",
+        "path": "/platform"
+    },
+    {
+        "name": "getExistsPlatform",
+        "callback": "getMatchSingle",
+        "outputType": "Platform",
+        "inputType": "",
+        "method": "GET",
+        "path": "/link/exists/platform"
+    }
+]
+\end{lstlisting}
+\end{minipage}
+
+
+\end{document}
