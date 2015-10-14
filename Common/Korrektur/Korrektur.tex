@@ -1,0 +1,268 @@
+% Name: Till Uhlig
+% Matrikelnummer: 211203809
+% Studiengang: Informatik
+% eMail: till.uhlig@student.uni-halle.de
+%
+\documentclass[a4paper,final, parskip]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[babel, german=guillemets]{csquotes}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx} % für die eingebundenen Bilder
+\usepackage{algorithm} % für die Pseudocodes
+\usepackage{algorithmic} % für die Pseudocodes
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{wrapfig}
+%\usepackage{thmbox}
+\usepackage[pagestyles,extramarks]{titlesec} % habe ich für meine Kopfzeile benutzt
+\usepackage{url} % für die URLs der Bibliographie
+\usepackage{tabularx} % für die erweiterten tabular Funktionen
+\usepackage{color} % dieses Package benötige ich für meinen \todo Befehl, um eine Farbige Box zu zeichnen
+ \usepackage{amsmath}
+ 
+\usepackage{listings,xcolor}
+%\newtheorem[L]{thmL}{Definition}
+%\newtheorem[M]{thmM}{Definition}
+%\newtheorem[S]{thmS}{Definition}
+\newtheorem{defi}{Definition}[section]
+\numberwithin{equation}{section}
+
+\floatname{algorithm}{Algorithmus}
+\definecolor{codeGray}{RGB}{240,240,240}
+\definecolor{codeBlack}{RGB}{0,0,0}
+\definecolor{codeRed}{RGB}{221,0,0}
+\definecolor{codeBlue}{rgb}{0,0,187}
+\definecolor{codeYellow}{RGB}{255,128,0}
+\definecolor{codeGreen}{RGB}{0,119,0}
+
+% … und zuweisen
+\lstset{%
+    language=PHP,%
+    %
+    % Farben, diktengleiche Schrift
+    backgroundcolor={\color{codeGray}},% 
+    basicstyle={\small\ttfamily\color{codeGreen}},% 
+    commentstyle={\color{codeYellow}},%
+    keywordstyle={\color{codeBlue}},%
+    stringstyle={\color{codeRed}},%
+    identifierstyle={\color{codeBlue}},%
+    %
+    % Zeilenumbrüche aktivieren, Leerzeichen nicht hervorheben    
+    breaklines=true,%
+    showstringspaces=false,%
+    % 
+    % Listing-Caption unterhalb (bottom)
+    captionpos=b,%
+    % 
+    % Listing einrahmen
+    frame=single,%
+    rulecolor={\color{codeBlack}},%
+    % 
+    % winzige Zeilennummern links
+   % numbers=left,%
+ %   numberstyle={\tiny\color{codeBlack}}%
+}
+
+\newcommand{\monthword}[1]{\ifcase#1\or Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or July\or August\or September\or Oktober\or November\or Dezember\fi} 
+
+% Grunddaten festlegen, für Titelseite
+\title
+{}
+\author 
+{}
+\date{\vspace{12cm}\monthword{\the\month}\space\the\year}
+\subtitle
+{}
+
+
+% hier werden Kopf- und Fusszeile festgelegt
+\settitlemarks*{section,subsection}
+\newpagestyle{seite}{
+}
+
+\newenvironment{php}
+{\begin{minipage}{\textwidth}
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\newenvironment{beispiel}
+{\begin{minipage}{\textwidth}
+Beispiel
+\begin{lstlisting}}
+{\end{lstlisting}
+\end{minipage}}
+
+\usepackage{chngcntr,tocloft}
+\counterwithin*{figure}{section}
+%\counterwithin*{figure}{subsection}
+%\counterwithin*{figure}{subsubsection}
+
+\renewcommand{\thefigure}{%
+  %\ifnum\value{subsection}=0
+    \thesection.\arabic{figure}%
+  %\else
+    %\ifnum\value{subsubsection}=0
+     % \thesubsection%.
+   %   \arabic{figure}%
+    %%\else
+    %%  \thesubsubsection.\arabic{figure}%
+   % \fi
+ % \fi
+}
+
+
+% diese Festlegungen werden für die \setlemma und \setdef benötigt
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+      
+% zum erzeugen einer Lemmas oder einer Defintion      
+\newcommand{\setdef}[2]{\begin{definition}[#1] #2 \end{definition}}
+\newcommand{\setlemma}[2]{\begin{lemma}[#1] #2 \end{lemma}}
+
+\newcommand{\abb}[1]{Abbildung \ref{#1}}
+
+% Quellenangaben werden mit diesen Befehlen realisiert
+\newcommand{\zitat}[1]{\tiny{\cite{#1}}\normalsize}
+\newcommand{\Zzitat}[1]{\tiny{#1}\normalsize}
+
+% zum erzeugen von "todo" Zeilen
+\newcommand{\blau}[1]{\textcolor{blue}{#1}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\parbox{\textwidth}{Todo: \textbf{#1}}}}
+
+\newenvironment{Bilder}
+  {\par\raggedbottom\null\noindent\minipage{\textwidth}\centering}
+  {\endminipage\vspace{0.7cm}}
+  
+\newcommand{\bild}[1]{
+\begin{Bilder}
+ \includegraphics{Images/#1}
+	\end{Bilder}
+}
+
+\newcommand{\wbild}[4]{%\textwidth
+\begin{wrapfigure}{r}{#4\textwidth}
+\centering
+\fbox{\includegraphics[scale=.75]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+\end{wrapfigure}
+}
+
+\newcommand{\dbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.5]{Images/#1}}
+	%\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+\newcommand{\tbild}[1]{
+\begin{Bilder}
+ \includegraphics[scale=.625]{Images/#1}
+	\end{Bilder}
+}
+
+\newcommand{\gbild}[2]{
+\begin{Bilder}	
+    \centering
+    #2
+	\begin{minipage}{\linewidth}
+    \centering
+       \includegraphics[scale=.625]{Images/#1}
+  \end{minipage}
+	\end{Bilder}
+}
+
+\newcommand{\pbild}[3]{%\textwidth
+\begin{Bilder}
+ \fbox{\includegraphics[scale=.50]{Images/#1}}
+	\captionof{figure}{#2}
+	\label{#3}
+	\end{Bilder}
+}
+
+% Ich habe öfters den Fall gehabt, dass ich gerne ein Lemma und
+% ein passendes Bild daneben darstellen wollte, darum habe ich
+% mir diese Gleitumgebung eingerichtet.
+\newcommand{\nebeneinander}[2]{
+\begin{figure}[H]
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#1
+  \end{minipage}
+  \begin{minipage}[b]{.5\linewidth}
+    \centering
+#2
+  \end{minipage}\hfill
+\end{figure}
+}
+
+
+% hier beginnt unser Dokument
+\begin{document}
+
+%\cleardoublepage
+% ab hier nutze ich die oben definierten Kopf- und Fusszeilen
+\pagestyle{seite}
+\section{Korrekturaufträge herunterladen}
+\subsection{Alle Korrekturaufträge}
+\tbild{pathA.png}
+Sie können alle Ihnen zugewiesenen Einsendungen herunterladen
+
+\subsection{Korrekturaufträge nach Status}
+\tbild{pathB.png}
+Es ist möglich, direkt einen bestimmten Korrekturstatus auszuwählen, um das Korrekturarchiv anschließend im Korrekturassistenten herunterzuladen.
+\tbild{pathC.png}
+
+\subsection{gefilterte Korrekturaufträge}
+\tbild{pathD.png}
+Sie können eine zusätzliche Auswahl im Korrekturassistenten treffen.
+\tbild{pathE.png}
+
+\newpage
+\section{Korrigieren}
+\subsubsection*{1. Entpacken}
+Entpacken Sie das heruntergeladene zip-Archiv.
+Sie finden dort die Liste.csv (hier müssen die Bewertungen eingetragen werden) und einige Unterordner (nach den Aufgaben der Übungsserie bezeichnet. Dazu enthalten diese Aufgabenordner weitere Unterordner (mit den internen Korrekturnummern bezeichnet), welche die jeweils zur Korrektur vorgesehene Datei enthalten.
+
+Eventuell enthält der jeweilige Ordner mit der Einsendung noch eine .pdf Datei, welche generiert wurde, weil die Einsendung als Text erkannt wurde. Diese .pdf kann direkt als Korrekturhilfe genutzt werden.
+
+Beispiel: Wenn der Student eine Hallo.java einsendet, wird zudem eine Hallo.pdf erzeugt. 
+
+\subsubsection*{2. Bewerten}
+Sie können die Bewertung, die Korrekturdatei und einen Kommentar in die Liste.csv eintragen. Dazu müssen Sie diese mit einem passenden Editor öffnen. 
+
+\gbild{libreA.png}{LibreOffice}
+
+\tbild{libreB.png}
+\begin{enumerate}
+\item Korrekturnummer (der Ordnername im zip-Archiv)
+\item die vergebenen Punkte (dürfen \blau{MAXPOINTS} nicht überschreiten)
+\item die maximale Punktzahl
+\item die Einsendung war "besonders gut" (0=nein, 1=ja)(wird nicht verwendet)
+\item der Status der Korrektur (0=nicht eingesendet, 1=unkorrigiert, 2=vorläufig, 3=korrigiert)(wird dem Studenten so angezeigt)
+\item ein Kommentar zur Einsendung (wird dem Studenten und im Korrekturassistenten angezeigt)(kein HTML verwenden)
+\item der Kommentar des Studenten zu seiner Einsendung (Sie können diesen Kommentar nicht verändern)
+\item diese Datei (Pfad bezieht sich auf das zip-Archiv) wird als Korrektur dem Studenten angezeigt (Sie können das Feld auch leer lassen, dann wird ihm keine Datei angezeigt)
+\item die Nummer des Korrekturarchivs, diese darf nicht entfernt werden und muss in der ersten Zeile stehen
+\end{enumerate}
+
+\subsubsection*{Anmerkungen}
+Sie können Kommentarzeilen in die csv-Datei eintragen, indem Sie diese mit -- beginnen. Zudem sind leere Zeilen erlaubt.
+
+\newpage
+\section{Korrekturen hochladen}
+Nachdem Sie die Liste.csv und alle Korrekturdateien in eine zip verpackt haben, können Sie diese zur Verarbeitung ins System laden.
+\tbild{uploadA.png}
+\tbild{uploadB.png}
+\tbild{uploadC.png}
+
+Wenn eine positive Meldung erscheint, wurden alle Korrekturen verarbeitet.
+\tbild{uploadD.png}
+
+\end{document}
