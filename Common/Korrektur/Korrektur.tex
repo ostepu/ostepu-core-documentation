@@ -234,15 +234,16 @@ Eventuell enthält der jeweilige Ordner mit der Einsendung noch eine .pdf Datei,
 
 Beispiel: Wenn der Student eine Hallo.java einsendet, wird zudem eine Hallo.pdf erzeugt. 
 
+\newpage
 \subsubsection*{2. Bewerten}
-Sie können die Bewertung, die Korrekturdatei und einen Kommentar in die Liste.csv eintragen. Dazu müssen Sie diese mit einem passenden Editor öffnen. 
+Sie können die \blau{Bewertung}, die \blau{Korrekturdatei}, den \blau{Korrekturstatus} und einen \blau{Kommentar} in die Liste.csv eintragen. Dazu müssen Sie diese mit einem passenden Editor öffnen. 
 
-\gbild{libreA.png}{LibreOffice}
+\tbild{libreA.png}
 
 \tbild{libreB.png}
 \begin{enumerate}
 \item Korrekturnummer (der Ordnername im zip-Archiv)
-\item die vergebenen Punkte (dürfen \blau{MAXPOINTS} nicht überschreiten)
+\item die erhaltenen Punkte (dürfen \blau{MAXPOINTS} nicht überschreiten)
 \item die maximale Punktzahl
 \item die Einsendung war "besonders gut" (0=nein, 1=ja)(wird nicht verwendet)
 \item der Status der Korrektur (0=nicht eingesendet, 1=unkorrigiert, 2=vorläufig, 3=korrigiert)(wird dem Studenten so angezeigt)
@@ -257,7 +258,10 @@ Sie können Kommentarzeilen in die csv-Datei eintragen, indem Sie diese mit -- b
 
 \newpage
 \section{Korrekturen hochladen}
-Nachdem Sie die Liste.csv und alle Korrekturdateien in eine zip verpackt haben, können Sie diese zur Verarbeitung ins System laden.
+Nachdem Sie die Liste.csv und alle Korrekturdateien in eine zip verpackt haben, können Sie diese zur Verarbeitung ins System laden. 
+
+Die korrigierten Dateien müssen dabei den zugehörigen Pfad der \blau{FILE} Spalte aus der Liste.csv haben.
+
 \tbild{uploadA.png}
 \tbild{uploadB.png}
 \tbild{uploadC.png}
